@@ -1,8 +1,22 @@
 import React, { Component } from 'react'
+import Book from './Book'
 
 class Bookshelf extends Component {
     render() {
-        return (<div/>);
+        return (
+            <div className="bookshelf">
+                  <h2 className="bookshelf-title">
+                      {/** TODO pass name prop */}
+                  </h2>
+                  <div className="bookshelf-books">
+                    <ol className="books-grid">
+                      <li>
+                        <Book />
+                      </li>
+                    </ol>
+                </div>
+            </div>
+        );
     }
 }
 
