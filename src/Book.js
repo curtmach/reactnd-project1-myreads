@@ -16,9 +16,12 @@ class Book extends Component {
                         </select>
                     </div>
                 </div>
-                {/** TODO remove hardcoded pass book in props */}
                 <div className="book-title">{this.props.book.title}</div>
-                <div className="book-authors">Harper Lee</div>
+                <div className="book-authors">
+                    {this.props.book.authors.map((author) => 
+                       author
+                    )}
+                </div>
             </div>
         );
     }
