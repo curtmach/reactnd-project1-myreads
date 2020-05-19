@@ -10,9 +10,15 @@ class Bookstore extends Component {
                     <h1>MyReads</h1>
                     </div>
                     <div className="list-books-content">
-                        <Bookshelf name='Currently Reading' books={[]} />{/** TODO pass books arr as props */}
-                        <Bookshelf name='Want to Read' books={[]} />
-                        <Bookshelf name='Read' books={[]} />
+                        <Bookshelf name='Currently Reading' books={this.props.books.filter((b) => {
+                            return b.shelf === 'currentlyReading'
+                        })} />
+                        <Bookshelf name='Want to Read' books={this.props.books.filter((b) => {
+                            return b.shelf === 'wantToRead'
+                        })} />
+                        <Bookshelf name='Read' books={this.props.books.filter((b) => {
+                            return b.shelf === 'read'
+                        })} />
                     </div>
                     <div className="open-search">
                         <Link 
