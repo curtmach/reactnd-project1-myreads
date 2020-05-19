@@ -4,21 +4,23 @@ import { Link } from 'react-router-dom'
 
 class Bookstore extends Component {
     render() {
+        const { books, moveBook } = this.props
+
         return (
             <div className="list-books">
                 <div className="list-books-title">
                     <h1>MyReads</h1>
                     </div>
                     <div className="list-books-content">
-                        <Bookshelf name='Currently Reading' books={this.props.books.filter((b) => {
+                        <Bookshelf name='Currently Reading' books={books.filter((b) => {
                             return b.shelf === 'currentlyReading'
-                        })} />
-                        <Bookshelf name='Want to Read' books={this.props.books.filter((b) => {
+                        })} moveBook={moveBook}/>
+                        <Bookshelf name='Want to Read' books={books.filter((b) => {
                             return b.shelf === 'wantToRead'
-                        })} />
-                        <Bookshelf name='Read' books={this.props.books.filter((b) => {
+                        })} moveBook={moveBook}/>
+                        <Bookshelf name='Read' books={books.filter((b) => {
                             return b.shelf === 'read'
-                        })} />
+                        })} moveBook={moveBook} />
                     </div>
                     <div className="open-search">
                         <Link 
