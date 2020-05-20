@@ -31,7 +31,6 @@ class BooksApp extends React.Component {
         })
     }
     
-
   render() {
     return (
       <div className="app">
@@ -43,7 +42,7 @@ class BooksApp extends React.Component {
         <Route 
           path='/search'
           render={() => (
-            <Search />
+            <Search moveBook={this.moveBook}/>
             )} />
       </div>
     )

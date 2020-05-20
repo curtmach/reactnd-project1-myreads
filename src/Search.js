@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Bookshelf from './Bookshelf'
+import { array } from 'prop-types'
 
 class Search extends Component {
     state = {
@@ -10,29 +11,28 @@ class Search extends Component {
         error: ''
     }
 
-    /*componentDidMount() {
-        BooksAPI.search('Gandhi')
-            .then((books) => {
-                this.setState({
-                    searchResults: books
-                })
-            })
-      }*/
-
     handleChange = event => {
         this.setState({
             value: event.target.value
         })
-
-        BooksAPI.search(event.target.value)
-            .then((books) => {
-                this.setState({
-                    searchResults: books
+        
+        if (event.target.value !== '') {
+            BooksAPI.search(event.target.value)
+                .then((books) => {
+                    (books.hasOwnProperty('error')) ? 
+                    this.setState({
+                        searchResults: []
+                    })
+                    : this.setState({
+                        searchResults: books
+                    })
                 })
-            })
+        }
     }
 
     render() {
+        const { moveBook } = this.props
+
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -60,8 +60,7 @@ class Search extends Component {
                 </div>
                 <div className="search-books-results">
                     <ol className="books-grid">
-                        {this.state.searchResults.length > 0 &&
-                            <Bookshelf books={this.state.searchResults} />}
+                        <Bookshelf books={this.state.searchResults} moveBook={moveBook} />
                     </ol>
                 </div>
             </div>
