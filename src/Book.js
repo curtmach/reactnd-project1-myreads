@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 class Book extends Component {
+
+    
     render() {
         const { book, moveBook } = this.props
 
@@ -31,6 +34,11 @@ class Book extends Component {
             </div>
         );
     }
+}
+
+Book.PropTypes = {
+    book: PropTypes.object.isRequired,
+    moveBook: PropTypes.func.isRequired
 }
 
 export default Book
