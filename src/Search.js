@@ -16,8 +16,8 @@ class Search extends Component {
             value: event.target.value
         })
         
-        if (event.target.value !== '') {
-            BooksAPI.search(event.target.value)
+        if (this.state.value !== '') {
+            BooksAPI.search(this.state.value)
                 .then((books) => {
                     (books.hasOwnProperty('error')) ? 
                     this.setState({
@@ -27,6 +27,10 @@ class Search extends Component {
                         searchResults: books
                     })
                 })
+        } else {
+            this.setState({
+                searchResults: []
+            })
         }
     }
 
@@ -60,7 +64,8 @@ class Search extends Component {
                 </div>
                 <div className="search-books-results">
                     <ol className="books-grid">
-                        <Bookshelf books={this.state.searchResults} moveBook={moveBook} />
+                        {this.state.value !== '' &&
+                        <Bookshelf name='' books={this.state.searchResults} moveBook={moveBook} />}
                     </ol>
                 </div>
             </div>
