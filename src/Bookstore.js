@@ -3,9 +3,12 @@ import Bookshelf from './Bookshelf'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
+/**
+ * The Main page component 
+ **/
 class Bookstore extends Component {
-    render() {
-        const { books, moveBook } = this.props;
+    render() { 
+        const { books, moveBook } = this.props; // Get our props
 
         return (
             <div className="list-books">
@@ -13,6 +16,7 @@ class Bookstore extends Component {
                     <h1>MyReads</h1>
                     </div>
                     <div className="list-books-content">
+                        {/* 3 Bookshelves, one for currently Reading, wantToRead and Read. The main books array is filtered and passed to these components */}
                         <Bookshelf name='Currently Reading' books={books.filter((b) => {
                             return b.shelf === 'currentlyReading'
                         })} moveBook={moveBook}/>
@@ -24,6 +28,7 @@ class Bookstore extends Component {
                         })} moveBook={moveBook} />
                     </div>
                     <div className="open-search">
+                        {/* Link to search page */}
                         <Link 
                             to='/search'
                             type='button'
@@ -36,6 +41,7 @@ class Bookstore extends Component {
     }
 }
 
+// Define our Bookstore PropTypes
 Bookstore.propTypes = {
     books: PropTypes.array.isRequired,
     moveBook: PropTypes.func.isRequired

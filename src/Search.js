@@ -4,54 +4,61 @@ import * as BooksAPI from './BooksAPI'
 import Bookshelf from './Bookshelf'
 import PropTypes from 'prop-types'
 
+/**
+ * Search for a book component
+ */
 class Search extends Component {
     state = {
         value: '',
         searchResults: [],
         error: ''
-    }
+    } // set intitial state
 
+    /**
+     * @description Search for a book - onchange event, updates state with search results
+     * @param {event} event - The onchange event
+     */
     handleChange = event => {
         this.setState({
             value: event.target.value
-        });
+        }); // sets state to query
         
         if (this.state.value !== '') {
-            BooksAPI.search(this.state.value)
+            BooksAPI.search(this.state.value) // make a call to search the API
                 .then((books) => {
                     
                     if (books.hasOwnProperty('error')) {
                         this.setState({
                             searchResults: []
-                        });
+                        }); // if error set state to empty array
                     } else {
                         books.map((book) => {
-                            const inCollection = this.props.books.filter(b => b.id === book.id);
+                            const inCollection = this.props.books.filter(b => b.id === book.id); // if the search results has a book that is already in collection (has a shelf)
 
-                            if (inCollection.length > 0) {
+                            if (inCollection.length > 0) { 
                                 book.shelf = inCollection[0].shelf;
-                                return book;
+                                return book; // if book is already in collection, set shelf prop of search result to shelf of book in collection
                             } else {
                                 const newBook = book;
                                 newBook["shelf"] = "none";
-                                return newBook;
+                                return newBook; // if book not in collection, set shelf prop of book to none
                             }
                         })
 
                         this.setState({
                             searchResults: books
-                        });
+                        }); //update state with updated books array from API
                     }
                 });
         } else {
             this.setState({
                 searchResults: []
-            });
+            }); // if error then set state to empty array
         }
     }
 
     render() {
-        const { books, moveBook } = this.props;
+        const { books, moveBook } = this.props; // get our props
 
         return (
             <div className="search-books">
@@ -62,14 +69,7 @@ class Search extends Component {
                         Close
                     </Link>
                     <div className="search-books-input-wrapper">
-                        {/*
-                        NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                        You can find these search terms here:
-                        https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                        However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                        you don't find a specific author or title. Every search is limited by search terms.
-                        */}
+                        {/* When query changes, trigger the handleChange function, value is set from the state */}
                         <input 
                             type="text" 
                             placeholder="Search by title or author"
@@ -80,8 +80,9 @@ class Search extends Component {
                 </div>
                 <div className="search-books-results">
                     <ol className="books-grid">
+                        {/* If the query isn't empty string, then show Bookshelf component with search results */}
                         {this.state.value !== '' &&
-                        <Bookshelf name='' books={this.state.searchResults} existingbooks={books} moveBook={moveBook}/>}
+                        <Bookshelf name='' books={this.state.searchResults} moveBook={moveBook}/>}
                     </ol>
                 </div>
             </div>
@@ -89,6 +90,7 @@ class Search extends Component {
     }
 }
 
+// Define PropTypes for Search component
 Search.propTypes = {
     books: PropTypes.array.isRequired,
     moveBook: PropTypes.func.isRequired
