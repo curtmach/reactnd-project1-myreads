@@ -13,9 +13,9 @@ class Book extends Component {
     }
 
     handleChange = event => {
-        const newBook = this.props.moveBook(this.props.book, event.target.value);
+        this.props.moveBook(this.props.book, event.target.value);
         this.setState({
-            shelf: this.props.book.shelf
+            shelf: event.target.value
         });
     }
 
@@ -28,7 +28,7 @@ class Book extends Component {
                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: book.hasOwnProperty('imageLinks') ? `url(${book.imageLinks.thumbnail})` : `url('./icons/no_image.png')`  }}></div>
                     <div className="book-shelf-changer">
                         <select 
-                            value={book.shelf}
+                            value={this.state.shelf}
                             onChange={this.handleChange}>
                             <option value="move" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
