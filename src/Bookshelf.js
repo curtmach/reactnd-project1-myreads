@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 class Bookshelf extends Component {
     render() {
-        const { name, books, moveBook } = this.props
+        const { name, books, moveBook } = this.props;
 
         return (
             <div className="bookshelf">

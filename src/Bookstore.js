@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 class Bookstore extends Component {
     render() {
-        const { books, moveBook } = this.props
+        const { books, moveBook } = this.props;
 
         return (
             <div className="list-books">

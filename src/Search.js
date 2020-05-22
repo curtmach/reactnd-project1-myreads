@@ -14,7 +14,7 @@ class Search extends Component {
     handleChange = event => {
         this.setState({
             value: event.target.value
-        })
+        });
         
         if (this.state.value !== '') {
             BooksAPI.search(this.state.value)
@@ -23,36 +23,35 @@ class Search extends Component {
                     if (books.hasOwnProperty('error')) {
                         this.setState({
                             searchResults: []
-                        })
+                        });
                     } else {
                         books.map((book) => {
                             const inCollection = this.props.books.filter(b => b.id === book.id);
+
                             if (inCollection.length > 0) {
-                                book.shelf = inCollection[0].shelf
-                                return book
+                                book.shelf = inCollection[0].shelf;
+                                return book;
                             } else {
-                                const newBook = book
-                                newBook["shelf"] = "none"
-                                return newBook
+                                const newBook = book;
+                                newBook["shelf"] = "none";
+                                return newBook;
                             }
                         })
 
-                        console.log(books)
-
                         this.setState({
                             searchResults: books
-                        })
+                        });
                     }
-                })
+                });
         } else {
             this.setState({
                 searchResults: []
-            })
+            });
         }
     }
 
     render() {
-        const { books, moveBook } = this.props
+        const { books, moveBook } = this.props;
 
         return (
             <div className="search-books">

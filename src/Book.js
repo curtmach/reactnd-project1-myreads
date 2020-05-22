@@ -9,18 +9,18 @@ class Book extends Component {
     componentDidMount() {
         this.setState({
             shelf: this.props.book.shelf
-        })
+        });
     }
 
     handleChange = event => {
-        const newBook = this.props.moveBook(this.props.book, event.target.value) 
+        const newBook = this.props.moveBook(this.props.book, event.target.value);
         this.setState({
             shelf: this.props.book.shelf
-        })
+        });
     }
 
     render() {
-        const { book, moveBook } = this.props
+        const { book } = this.props
 
         return (
             <div className="book">

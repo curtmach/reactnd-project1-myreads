@@ -16,7 +16,7 @@ class BooksApp extends React.Component {
             this.setState({
                 books: books
             })
-        })
+        });
   }
 
   moveBook = (book, newShelf) => {
@@ -28,7 +28,7 @@ class BooksApp extends React.Component {
                         books: books
                     })
                 })
-        })
+        });
     }
     
   render() {
