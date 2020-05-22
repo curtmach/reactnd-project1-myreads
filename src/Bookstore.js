@@ -36,7 +36,7 @@ class Bookstore extends Component {
     }
 }
 
-Bookstore.PropTypes = {
+Bookstore.propTypes = {
     books: PropTypes.array.isRequired,
     moveBook: PropTypes.func.isRequired
 }

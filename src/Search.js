@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Bookshelf from './Bookshelf'
-import { array } from 'prop-types'
+import PropTypes from 'prop-types'
 
 class Search extends Component {
     state = {
@@ -19,13 +19,30 @@ class Search extends Component {
         if (this.state.value !== '') {
             BooksAPI.search(this.state.value)
                 .then((books) => {
-                    (books.hasOwnProperty('error')) ? 
-                    this.setState({
-                        searchResults: []
-                    })
-                    : this.setState({
-                        searchResults: books
-                    })
+                    
+                    if (books.hasOwnProperty('error')) {
+                        this.setState({
+                            searchResults: []
+                        })
+                    } else {
+                        books.map((book) => {
+                            const inCollection = this.props.books.filter(b => b.id === book.id);
+                            if (inCollection.length > 0) {
+                                book.shelf = inCollection[0].shelf
+                                return book
+                            } else {
+                                const newBook = book
+                                newBook["shelf"] = "none"
+                                return newBook
+                            }
+                        })
+
+                        console.log(books)
+
+                        this.setState({
+                            searchResults: books
+                        })
+                    }
                 })
         } else {
             this.setState({
@@ -65,12 +82,17 @@ class Search extends Component {
                 <div className="search-books-results">
                     <ol className="books-grid">
                         {this.state.value !== '' &&
-                        <Bookshelf name='' books={this.state.searchResults} moveBook={moveBook} />}
+                        <Bookshelf name='' books={this.state.searchResults} existingbooks={books} moveBook={moveBook}/>}
                     </ol>
                 </div>
             </div>
         );
     }
+}
+
+Search.propTypes = {
+    books: PropTypes.array.isRequired,
+    moveBook: PropTypes.func.isRequired
 }
 
 export default Search

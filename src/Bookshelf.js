@@ -23,7 +23,8 @@ class Bookshelf extends Component {
     }
 }
 
-Bookshelf.PropTypes = {
+Bookshelf.propTypes = {
+    name: PropTypes.string,
     books: PropTypes.array.isRequired,
     moveBook: PropTypes.func.isRequired
 }

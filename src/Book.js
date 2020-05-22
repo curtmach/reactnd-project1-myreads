@@ -1,9 +1,24 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-class Book extends Component {
+class Book extends Component {  
+    state = {
+        shelf: []
+    }
 
-    
+    componentDidMount() {
+        this.setState({
+            shelf: this.props.book.shelf
+        })
+    }
+
+    handleChange = event => {
+        const newBook = this.props.moveBook(this.props.book, event.target.value) 
+        this.setState({
+            shelf: this.props.book.shelf
+        })
+    }
+
     render() {
         const { book, moveBook } = this.props
 
@@ -13,10 +28,8 @@ class Book extends Component {
                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: book.hasOwnProperty('imageLinks') ? `url(${book.imageLinks.thumbnail})` : `url('./icons/no_image.png')`  }}></div>
                     <div className="book-shelf-changer">
                         <select 
-                            value={(book.hasOwnProperty('shelf')) ? book.shelf : 'none'}
-                            onChange={(e) => { 
-                                moveBook(book, e.target.value) 
-                                }}>
+                            value={book.shelf}
+                            onChange={this.handleChange}>
                             <option value="move" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
@@ -36,7 +49,7 @@ class Book extends Component {
     }
 }
 
-Book.PropTypes = {
+Book.propTypes = {
     book: PropTypes.object.isRequired,
     moveBook: PropTypes.func.isRequired
 }
