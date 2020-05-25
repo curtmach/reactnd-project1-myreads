@@ -58,7 +58,7 @@ class Search extends Component {
     }
 
     render() {
-        const { books, moveBook } = this.props; // get our props
+        const { moveBook } = this.props; // get our props
 
         return (
             <div className="search-books">
