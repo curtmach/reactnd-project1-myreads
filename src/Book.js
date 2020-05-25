@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
  */
 class Book extends Component {  
     state = {
-        shelf: [] // set book shelf
+        shelf: '' // set book shelf
     }
 
     /**

@@ -23,8 +23,8 @@ class Search extends Component {
             value: event.target.value
         }); // sets state to query
         
-        if (this.state.value !== '') {
-            BooksAPI.search(this.state.value) // make a call to search the API
+        if (event.target.value !== '') {
+            BooksAPI.search(event.target.value) // make a call to search the API - changed to event.target.value due to async problem in feedback
                 .then((books) => {
                     
                     if (books.hasOwnProperty('error')) {

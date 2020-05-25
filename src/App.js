@@ -3,7 +3,8 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Bookstore from './Bookstore'
 import Search from './Search'
-import { Route } from 'react-router-dom'
+import NotFound404 from './NotFound404'
+import { Route, BrowserRouter, Switch } from 'react-router-dom'
 
 class BooksApp extends React.Component {
   state = {
@@ -42,18 +43,24 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        {/* Route to Main Page */}
-        <Route exact
-            path='/'
-            render={() => (
-              <Bookstore books={this.state.books} moveBook={this.moveBook}/>
-              )} />
-        {/* Route to Search Page */}
-        <Route 
-          path='/search'
-          render={() => (
-            <Search books={this.state.books} moveBook={this.moveBook}/>
-            )} />
+        <BrowserRouter>
+          <Switch>
+            {/* Route to Main Page */}
+            <Route exact
+                path='/'
+                render={() => (
+                  <Bookstore books={this.state.books} moveBook={this.moveBook}/>
+                  )} />
+            {/* Route to Search Page */}
+            <Route 
+              path='/search'
+              render={() => (
+                <Search books={this.state.books} moveBook={this.moveBook}/>
+                )} />
+            {/* 404 Not Found */}
+            <Route component={NotFound404} />
+          </Switch>
+        </BrowserRouter>
       </div>
     )
   }
